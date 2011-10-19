@@ -49,7 +49,7 @@ I would like to have this run via Gearman eventually.
 Stand Alone Server
 ------------------
 
-Just run `script/photogame_server.pl` to test the application.
+Just run `script/photogame_server.pl` to test the application. Then point your favourite browser at `http://localhost:3000`
 
 FragFest
 --------
