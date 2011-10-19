@@ -1,0 +1,38 @@
+#!/usr/bin/env perl
+# IMPORTANT: if you delete this file your app will not work as
+# expected.  You have been warned.
+use inc::Module::Install;
+use Module::Install::Catalyst; # Complain loudly if you don't have
+                               # Catalyst::Devel installed or haven't said
+                               # 'make dist' to create a standalone tarball.
+
+name 'PhotoGame';
+all_from 'lib/PhotoGame.pm';
+
+requires 'Catalyst::Runtime' => '5.90003';
+requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Catalyst::Plugin::Static::Simple';
+requires 'Catalyst::Session';
+requires 'Catalyst::Session::Store::File';
+requires 'Catalyst::Session::State::Cookie';
+requires 'Catalyst::Action::RenderView';
+requires 'Catalyst::View::TT';
+requires 'Catalyst::Model::DBI';
+requires 'Catalyst::Controller::HTML::FormFu';
+requires 'DBD::mysql';
+requires 'File::Spec';
+requires 'File::Temp';
+requires 'Moose';
+requires 'namespace::autoclean';
+requires 'Config::General'; # This should reflect the config file format you've chosen
+                 # See Catalyst::Plugin::ConfigLoader for supported formats
+
+# scripts need
+requires 'Imager';
+
+test_requires 'Test::More' => '0.88';
+catalyst;
+
+install_script glob('script/*.pl');
+auto_install;
+WriteAll;

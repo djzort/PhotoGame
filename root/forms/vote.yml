@@ -1,0 +1,23 @@
+---
+action: /vote
+indicator: submit
+output_processors:
+  - Indent
+
+elements:
+  - type: Fieldset
+    name: vote
+    elements:
+      - type: Src
+        content_xml: "<legend>Vote!</legend>"
+      - type: Image
+        name: photo1
+        value: Foo1
+        src: /static/uploads/thumbs/FGmhzqHduV671vChj71xAQ08.jpg
+      - type: Image
+        name: photo1
+        value: Foo2
+        src: /static/uploads/thumbs/FGmhzqHduV671vChj71xAQ08.jpg
+
+constraints:
+  - SingleValue

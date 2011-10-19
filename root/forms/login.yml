@@ -1,0 +1,38 @@
+---
+action: /login
+indicator: submit
+
+elements:
+  - type: Fieldset
+    name: login
+    elements:
+      - type: Src
+        content_xml: "<legend>Login</legend>"
+      - type: Text
+        name: username
+        label: "Username:"
+        add_label_attributes:
+            class: auto
+        container_tag: p
+        attributes:
+          id: username
+          title: Enter your username
+        constraints:
+          - Required
+      - type: Password
+        name: password
+        label: "Password:"
+        add_label_attributes:
+            class: auto
+        container_tag: p
+        attributes:
+          id: password
+          title: Enter your password
+        constraints:
+          - Required
+      - type: Submit
+        name: submit
+        value: Login
+
+constraints:
+  - SingleValue

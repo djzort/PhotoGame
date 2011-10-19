@@ -1,0 +1,26 @@
+---
+action: /upload
+indicator: submit
+output_processors:
+  - Indent
+
+elements:
+  - type: Fieldset
+    name: upload
+    elements:
+      - type: Src
+        content_xml: "<legend>Upload!</legend>"
+      - type: File
+        name: photo
+        label: "Photo:"
+        attributes:
+          id: photo
+          title: Upload your photo
+        constraints:
+          - Required
+      - type: Submit
+        name: submit
+        value: Go
+
+constraints:
+  - SingleValue

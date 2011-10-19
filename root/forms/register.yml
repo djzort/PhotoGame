@@ -1,0 +1,79 @@
+---
+action: /register
+indicator: submit
+output_processors:
+  - Indent
+
+elements:
+  - type: Fieldset
+    name: vote
+    elements:
+      - type: Src
+        content_xml: "<legend>Register to Compete!</legend>"
+
+      - type: Text
+        name: full_name
+        label: "Full Name:"
+        attributes:
+          id: fullname
+          title: Full Name
+        constraints:
+          - type: Required
+
+      - type: Text
+        name: email_addr
+        label: "Email:"
+        attributes:
+          id: emailaddr
+          title: Email Address
+        constraints:
+          - type: Required
+          - type: Email
+
+      - type: Hr
+
+      - type: Text
+        name: username
+        label: "Username:"
+        attributes:
+          id: username
+          title: Username
+        constraints:
+          - type: Required
+          - type: Length
+            min: 2
+            max: 255
+        validators:
+          - '+PhotoGame::Validator::UniqueUsername'
+
+      - type: Password
+        name: password
+        label: "Password:"
+        render_value: true
+        
+        attributes:
+          id: password
+          title: Password
+        constraints:
+          - type: Required
+          - type: Length
+            min: 6
+            max: 255
+          - type: Equal
+            others: repeat-password
+
+      - type: Password
+        name: repeat-password
+        label: "Repeat:"
+        render_value: true
+        attributes:
+          id: repeat-password
+          title: Repeat Password
+
+
+      - type: Submit
+        name: submit
+        value: Go
+
+constraints:
+  - SingleValue
