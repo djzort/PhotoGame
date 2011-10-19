@@ -1,7 +1,7 @@
 Welcome to PhotoGame!
 =====================
 
-This is a simple game for LANparty's, in the form of a web application written in Perl using the Catalyst MVC framework.
+This is a simple game for LANparty's, in the form of a web application written in [Perl](http://learn.perl.org) using the [Catalyst MVC framework](http://www.catalystframework.org).
 
 Synopsis
 --------
