@@ -7,7 +7,7 @@ use DBI;
 use Imager;
 use File::Spec;
 
-my $outputpath = '/home/dean/svn/lanpos/catalyst/PhotoGame/root/static/uploads';
+my $outputpath = '/home/dean/git/PhotoGame/root/static/uploads';
 my $thumbspath = File::Spec->catfile($outputpath, 'thumbs');
 my $originalspath = File::Spec->catfile($outputpath, 'originals');
 
