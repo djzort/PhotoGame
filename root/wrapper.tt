@@ -19,24 +19,25 @@
 </head>
 <body>
   <div id="main">
-    <div id="heading">
+    <div id="heading"><h1><span>PhotoGame by FragFest</span></h1>
     </div>
     <div id="content">
       [% content %]
-      <ul>
-        <li><a href="/results">Results</a></li>
-        <li><a href="/gallery">Gallery</a></li>
-        <li><a href="/vote">Vote</a></li>
-      [%- IF me -%]
-        <li><a href="/upload">Submit Photos</a></li>
-        <li><a href="/logout">Log Out</a></li>
-      [%- ELSE %]
-        <li><a href="/login">Log in</a></li>
-      [%- END %]
-      </ul>
       <p class="debug">[% debug %]</p>
     </div>
-    <div id="footer">
+    <div id="menu">
+        <a href="/results" class="menu results">Results</a>
+        <a href="/gallery" class="menu gallery">Gallery</a>
+        <a href="/vote" class="menu vote">Vote</a>
+      [%- IF me -%]
+        <a href="/upload" class="menu upload">Submit Photos</a>
+        <a href="/logout" class="menu logout">Log Out</a>
+      [%- ELSE %]
+        <a href="/login" class="menu login">Log in</a>
+      [%- END %]
+
+    </div>
+    <div id="footer"><span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
     </div>
   </div>
 </body>
