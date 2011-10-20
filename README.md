@@ -6,7 +6,7 @@ This is a simple game for LANparty's, in the form of a web application written i
 Synopsis
 --------
 
-PhotoGame is a fun way to make a competition out of taking photos during your LANparty! Guests register and submit photos that they take, whilst other guests vote on the photos to decide the winner, then all you have to do is to give out the prizes!
+PhotoGame is a fun way to make a competition out of taking photos during your LANparty! Guests register and submit the photos they take, whilst other guests vote on the photos to decide the winner, then all you have to do is give out the prizes!
 
 So with one simple application, we've found an easy way of encouraging our guests to take great photos then to hand them over - and given all our guests the chance to be part of the judging (ie made it social) by allowing other guests to do the judging for us!
 
