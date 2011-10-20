@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="main">
-      <div id="heading">
+      <div id="heading">PhotoGame by FragFest
       </div>
       <div id="content">
         [% content %]
@@ -25,7 +25,7 @@
         </ul>
         <p class="debug">[% debug %]</p>
       </div>
-      <div id="footer">
+      <div id="footer">Join us at <a href="http://fragfest.com.au">FragFest</a>
       </div>
     </div>
   </body>
