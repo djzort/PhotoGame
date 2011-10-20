@@ -32,10 +32,10 @@
         <li class="menu vote"><a href="/vote"><span>Vote</span></a></li>
       [%- IF me %]
         <li class="menu upload"><a href="/upload"><span>Upload</span></a></li>
-        <li class="menu logout"><a href="/logout"><span>Log Out</span></a></li>
+        <li class="menu logout"><a class="wide" href="/logout"><span>Log Out</span></a></li>
       [%- ELSE %]
         <li class="menu login"><a href="/login"><span>Log in</span></a></li>
-        <li class="menu register"><a href="/register"><span>Register</span></a></li>
+        <li class="menu register"><a class="wide" href="/register"><span>Register</span></a></li>
       [%- END %]
       </ul>
     </div>
