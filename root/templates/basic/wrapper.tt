@@ -5,6 +5,7 @@
   <head>
     <title>PhotoGame by FragFest</title>
   </head>
+  <body>
     <div id="main">
       <div id="heading">
       </div>
