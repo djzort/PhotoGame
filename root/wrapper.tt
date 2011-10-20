@@ -26,19 +26,23 @@
       <p class="debug">[% debug %]</p>
     </div>
     <div id="menu">
-        <a href="/results" class="menu results"><span>Results</span></a>
-        <a href="/gallery" class="menu gallery"><span>Gallery</span></a>
-        <a href="/vote" class="menu vote"><span>Vote</span></a>
-      [%- IF me -%]
-        <a href="/upload" class="menu upload"><span>Submit Photos</span></a>
-        <a href="/logout" class="menu logout"><span>Log Out</span></a>
+      <ul id="menu">
+        <li class="menu results"><a href="/results"><span>Results</span></a></li>
+        <li class="menu gallery"><a href="/gallery"><span>Gallery</span></a></li>
+        <li class="menu vote"><a href="/vote"><span>Vote</span></a></li>
+      [%- IF me %]
+        <li class="menu upload"><a href="/upload"><span>Upload</span></a></li>
+        <li class="menu logout"><a href="/logout"><span>Log Out</span></a></li>
       [%- ELSE %]
-        <a href="/login" class="menu login"><span>Log in</span></a>
+        <li class="menu login"><a href="/login"><span>Log in</span></a></li>
+        <li class="menu register"><a href="/register"><span>Register</span></a></li>
       [%- END %]
-
+      </ul>
     </div>
-    <div id="footer"><span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
-    </div>
+  </div>
+  <div id="footer">
+      <span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
+      <img src="/static/images/btn_120x50_powered_shadow.png" alt="Powered by Catalyst" />
   </div>
 </body>
 

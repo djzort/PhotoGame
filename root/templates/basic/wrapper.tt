@@ -11,8 +11,10 @@
       </div>
       <div id="content">
         [% content %]
-
-        <ul>
+        <p class="debug">[% debug %]</p>
+      </div>
+      <div id="menu">
+        <ul id="menu">
           <li><span><a href="/results">Results</a></span></li>
           <li><span><a href="/gallery">Gallery</a></span></li>
           <li><span><a href="/vote">Vote</a></span></li>
@@ -24,9 +26,9 @@
           <li><span><a href="/register">Register</a></span></li>
         [%- END -%]
         </ul>
-        <p class="debug">[% debug %]</p>
-      </div>
-      <div id="footer"><span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
+      <div id="footer">
+        <span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
+        <img src="/static/images/btn_120x50_powered_shadow.png" alt="Powered by Catalyst" />
       </div>
     </div>
   </body>
