@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>PhotoGame</title>
+  </head>
+    <div id="main">
+      <div id="heading">
+      </div>
+      <div id="content">
+        [% content %]
+
+        <ul>
+          <li><a href="/results">Results</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/vote">Vote</a></li>
+        [%- IF me -%]
+          <li><a href="/upload">Submit Photos</a></li>
+          <li><a href="/logout">Log Out</a></li>
+        [%- ELSE -%]
+          <li><a href="/login">Log in</a></li>
+        [%- END -%]
+        </ul>
+        <p class="debug">[% debug %]</p>
+      </div>
+      <div id="footer">
+      </div>
+    </div>
+  </body>
+</html>
