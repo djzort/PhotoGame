@@ -26,14 +26,14 @@
       <p class="debug">[% debug %]</p>
     </div>
     <div id="menu">
-        <span><a href="/results" class="menu results">Results</a></span>
-        <span><a href="/gallery" class="menu gallery">Gallery</a></span>
-        <a href="/vote" class="menu vote">Vote</a>
+        <a href="/results" class="menu results"><span>Results</span></a>
+        <a href="/gallery" class="menu gallery"><span>Gallery</span></a>
+        <a href="/vote" class="menu vote"><span>Vote</span></a>
       [%- IF me -%]
-        <a href="/upload" class="menu upload">Submit Photos</a>
-        <a href="/logout" class="menu logout">Log Out</a>
+        <a href="/upload" class="menu upload"><span>Submit Photos</span></a>
+        <a href="/logout" class="menu logout"><span>Log Out</span></a>
       [%- ELSE %]
-        <a href="/login" class="menu login">Log in</a>
+        <a href="/login" class="menu login"><span>Log in</span></a>
       [%- END %]
 
     </div>
