@@ -13,15 +13,15 @@
         [% content %]
 
         <ul>
-          <li><a href="/results">Results</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/vote">Vote</a></li>
+          <li><span><a href="/results">Results</a></span></li>
+          <li><span><a href="/gallery">Gallery</a></span></li>
+          <li><span><a href="/vote">Vote</a></span></li>
         [%- IF me -%]
-          <li><a href="/upload">Submit Photos</a></li>
-          <li><a href="/logout">Log Out</a></li>
+          <li><span><a href="/upload">Submit Photos</a></span></li>
+          <li><span><a href="/logout">Log Out</a></span></li>
         [%- ELSE -%]
-          <li><a href="/login">Log in</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><span><a href="/login">Log in</a></span></li>
+          <li><span><a href="/register">Register</a></span></li>
         [%- END -%]
         </ul>
         <p class="debug">[% debug %]</p>

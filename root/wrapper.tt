@@ -26,8 +26,8 @@
       <p class="debug">[% debug %]</p>
     </div>
     <div id="menu">
-        <a href="/results" class="menu results">Results</a>
-        <a href="/gallery" class="menu gallery">Gallery</a>
+        <span><a href="/results" class="menu results">Results</a></span>
+        <span><a href="/gallery" class="menu gallery">Gallery</a></span>
         <a href="/vote" class="menu vote">Vote</a>
       [%- IF me -%]
         <a href="/upload" class="menu upload">Submit Photos</a>
