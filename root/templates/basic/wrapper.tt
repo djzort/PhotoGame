@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="main">
-      <div id="heading">PhotoGame by FragFest
+      <div id="heading"><h1><span>PhotoGame by FragFest</span></h1>
       </div>
       <div id="content">
         [% content %]
@@ -21,11 +21,12 @@
           <li><a href="/logout">Log Out</a></li>
         [%- ELSE -%]
           <li><a href="/login">Log in</a></li>
+          <li><a href="/register">Register</a></li>
         [%- END -%]
         </ul>
         <p class="debug">[% debug %]</p>
       </div>
-      <div id="footer">Join us at <a href="http://fragfest.com.au">FragFest</a>
+      <div id="footer"><span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
       </div>
     </div>
   </body>
