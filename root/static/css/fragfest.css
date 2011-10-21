@@ -1,0 +1,180 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	font: 20px/1.5 Arial, sans-serif;
+	background: #dddddd;
+}
+
+body, h1, h3, p {
+	padding: 0;
+	margin: 0;
+}
+
+#main {
+/*	background: url(container.png) top center repeat-y !important;
+	background: url(container.gif) top center repeat-y; /*stoopid ie*/ 
+	width: 640px;
+	margin: 0 auto;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%; /*stoopid ie*/
+}
+
+#heading {
+	height: 340px; 
+	width: 640px;
+	margin-bottom: 0 !important;
+	background: url(/static/images/fragfest/photogame-title.png) top center no-repeat !important;
+/*	background: url(/static/images/fragfest/photogame-title.gif) top center no-repeat !important; */
+
+}
+
+#heading h1 span, #menu span {
+	display: none;
+}
+
+#content {
+}
+
+#content div {
+	padding: 0 0 10px 10px;
+}
+
+#content fieldset {
+	border: thin solid #000;
+	width: 400px;
+	margin: 0 auto 50px auto;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#content .error {
+	border: thin solid #f00;
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+
+#content .error_message {
+	font: 16px Arial, sans-serif;
+	display: block;
+	font-style: italic;
+}
+
+#content label {
+	float: left;
+	text-align: right;
+	width: 100px;
+	margin-right: 10px;
+}
+
+#content input {
+	width: 250px;
+	height: 28px;
+	padding: 0;
+	border: thin solid #000;
+	text-indent: 5px;
+	background: #eee;
+}
+
+#content input:hover {
+    background: #fff;
+}
+
+#content input[type="submit"] {
+    width: 80%;
+    margin: 0 20px 0 20px;
+}
+
+.form_error {
+	width: 400px;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	color: #f00;
+	border: thin solid #f00;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.form_message {
+	width: 400px;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: thin solid #000;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#menu {
+	margin: 0 auto;
+}
+
+#menu ul {
+	width: 100%;
+	list-style-type: none;
+	font-color: #f00;
+}
+
+#menu li {
+	float: left;
+}
+
+#menu a {
+	width: 250px;
+	display: block;
+	height: 80px;
+}
+
+#menu a.wide {
+	width: 500px;
+}
+
+#menu li.results {
+	background: url(/static/images/fragfest/photogame-menu-results.png) top center no-repeat;
+}
+
+#menu li.gallery {
+	background: url(/static/images/fragfest/photogame-menu-gallery.png) top center no-repeat;
+}
+
+#menu li.vote {
+	background: url(/static/images/fragfest/photogame-menu-vote.png) top center no-repeat;
+}
+
+#menu li.login {
+	background: url(/static/images/fragfest/photogame-menu-login.png) top center no-repeat;
+}
+
+#menu li.upload {
+	background: url(/static/images/fragfest/photogame-menu-upload.png) top center no-repeat;
+}
+
+#menu li.logout {
+	width: 500px;
+	background: url(/static/images/fragfest/photogame-menu-logout.png) top center no-repeat;
+}
+
+#menu li.register {
+	width: 500px;
+	background: url(/static/images/fragfest/photogame-menu-register.png) top center no-repeat;
+}
+
+#footer {
+	background: #ffffff url(/static/images/fragfest/photogame-footer.png) top center repeat-x !important;
+/*	background: url(/static/images/fragfest/photogame-footer.gif) top center repeat-x; /*stoopid ie*/ 
+	clear: left;
+	height: 90px;
+	text-align:center;
+}
+
+#footer img {
+	vertical-align: middle;
+	margin: 20px 0 20px 20px;
+}
+
+#footer .votes {
+	font-style: italic;
+}
