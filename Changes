@@ -1,5 +1,8 @@
 This file documents the revision history for Perl application PhotoGame.
 
+0.03  pending
+        - added 'total_votes' values
+
 0.02  2011-10-20 12:00:00
         - add index (woops)
         - add fragfest template (updates to basic template)
