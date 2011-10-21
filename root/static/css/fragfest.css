@@ -1,5 +1,5 @@
 html, body {
-	height: 100%;
+	height: 93%;
 }
 
 body {
@@ -15,7 +15,7 @@ body, h1, h3, p {
 #main {
 /*	background: url(container.png) top center repeat-y !important;
 	background: url(container.gif) top center repeat-y; /*stoopid ie*/ 
-	width: 640px;
+	width: 840px;
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
@@ -24,18 +24,15 @@ body, h1, h3, p {
 
 #heading {
 	height: 340px; 
-	width: 640px;
+	width: 840px;
 	margin-bottom: 0 !important;
 	background: url(/static/images/fragfest/photogame-title.png) top center no-repeat !important;
 /*	background: url(/static/images/fragfest/photogame-title.gif) top center no-repeat !important; */
-
 }
 
-#heading h1 span, #menu span {
+#heading h1 span,
+#menu span {
 	display: none;
-}
-
-#content {
 }
 
 #content div {
@@ -69,7 +66,8 @@ body, h1, h3, p {
 	margin-right: 10px;
 }
 
-#content input {
+#content input[type="text"],
+#content input[type="password"] {
 	width: 250px;
 	height: 28px;
 	padding: 0;
@@ -78,13 +76,33 @@ body, h1, h3, p {
 	background: #eee;
 }
 
-#content input:hover {
-    background: #fff;
+#content input[type="submit"] {
+	width: 80%;
+	margin: 0 20px 0 20px;
+	height: 28px;
+	padding: 0;
+	border: thin solid #000;
+	text-indent: 5px;
+	background: #eee;
 }
 
-#content input[type="submit"] {
-    width: 80%;
-    margin: 0 20px 0 20px;
+#content input:hover {
+	background: #fff;
+}
+
+#content input[type="image"] {
+	display: block;
+	margin: 0 auto;
+}
+
+.specimena {
+	float: right;
+	height: 400px;
+}
+
+.specimenb {
+	clear: right;
+	height: 400px;
 }
 
 .form_error {
@@ -128,10 +146,6 @@ body, h1, h3, p {
 	height: 80px;
 }
 
-#menu a.wide {
-	width: 500px;
-}
-
 #menu li.results {
 	background: url(/static/images/fragfest/photogame-menu-results.png) top center no-repeat;
 }
@@ -153,12 +167,10 @@ body, h1, h3, p {
 }
 
 #menu li.logout {
-	width: 500px;
 	background: url(/static/images/fragfest/photogame-menu-logout.png) top center no-repeat;
 }
 
 #menu li.register {
-	width: 500px;
 	background: url(/static/images/fragfest/photogame-menu-register.png) top center no-repeat;
 }
 

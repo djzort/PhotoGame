@@ -32,7 +32,7 @@ The root page (/)
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
     # nothing to see here
@@ -99,7 +99,7 @@ Allows people to log in and then be able to submit photos to the game
 
 =cut
 
-sub login :Path('login') : Args(0) : FormConfig {
+sub login : Path('login') : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
@@ -319,12 +319,23 @@ sub upload_FORM_VALID {
     my ( $suffix ) = $photo->filename =~ m{(\.\w+)$};
     $suffix ||= 'jpg';
 
-    my ( $fh, $filename ) = tempfile(
+    my ( $fh, $filename );
+
+    eval {
+        ( $fh, $filename ) = tempfile(
            'FGXXXXXXXXXXXXXXXXXXXXXX',
             SUFFIX => lc($suffix),
             UNLINK => 0,
             DIR => $c->config->{queuepath}
             );
+    };
+
+    if ($@) {
+
+        $c->stash->{error} = "Error writing file: $@";
+        return 1
+
+    }
 
     if ( $photo->copy_to( $fh ) ) {
 

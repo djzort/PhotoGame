@@ -1,13 +1,17 @@
 [%- META title = 'Vote' -%]
 
-<form action="/vote" method="POST" name="vote">
-<input type="hidden" name="winner" value="[% specimen1.specimen_id%]" />
-<input type="hidden" name="loser" value="[% specimen2.specimen_id%]" />
-<input type="image" src="/static/uploads/thumbs/[% specimen1.file_name %]" title="[% specimen1.orig_name %]" class="specimen" name="vote" value="vote" />
-</form>
+  <div class="specimen specimena">
+    <form action="/vote" method="POST" name="vote">
+      <input type="hidden" name="winner" value="[% specimen1.specimen_id%]" />
+      <input type="hidden" name="loser" value="[% specimen2.specimen_id%]" />
+      <input type="image" src="/static/uploads/thumbs/[% specimen1.file_name %]" title="[% specimen1.orig_name %]" name="vote" value="vote" />
+    </form>
+  </div>
 
-<form action="/vote" method="POST" name="vote">
-<input type="hidden" name="winner" value="[% specimen2.specimen_id%]" />
-<input type="hidden" name="loser" value="[% specimen1.specimen_id%]" />
-<input type="image" src="/static/uploads/thumbs/[% specimen2.file_name %]" title="[% specimen2.orig_name %]" class="specimen" name="vote" value="vote" />
-</form>
+  <div class="specimen specimena">
+    <form action="/vote" method="POST" name="vote">
+      <input type="hidden" name="winner" value="[% specimen2.specimen_id%]" />
+      <input type="hidden" name="loser" value="[% specimen1.specimen_id%]" />
+      <input type="image" src="/static/uploads/thumbs/[% specimen2.file_name %]" title="[% specimen2.orig_name %]" name="vote" value="vote" />
+    </form>
+  </div>
