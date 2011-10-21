@@ -15,7 +15,7 @@ body, h1, h3, p {
 #main {
 /*	background: url(container.png) top center repeat-y !important;
 	background: url(container.gif) top center repeat-y; /*stoopid ie*/ 
-	width: 840px;
+	width: 875px;
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
@@ -24,7 +24,7 @@ body, h1, h3, p {
 
 #heading {
 	height: 340px; 
-	width: 840px;
+	width: 100%;
 	margin-bottom: 0 !important;
 	background: url(/static/images/fragfest/photogame-title.png) top center no-repeat !important;
 /*	background: url(/static/images/fragfest/photogame-title.gif) top center no-repeat !important; */
@@ -35,9 +35,6 @@ body, h1, h3, p {
 	display: none;
 }
 
-#content div {
-	padding: 0 0 10px 10px;
-}
 
 #content fieldset {
 	border: thin solid #000;
@@ -59,6 +56,11 @@ body, h1, h3, p {
 	font-style: italic;
 }
 
+#content .label,
+#content .submit {
+	padding: 0 0 10px 10px;
+}
+
 #content label {
 	float: left;
 	text-align: right;
@@ -78,7 +80,7 @@ body, h1, h3, p {
 
 #content input[type="submit"] {
 	width: 80%;
-	margin: 0 20px 0 20px;
+	margin: 0 0 0 30px;
 	height: 28px;
 	padding: 0;
 	border: thin solid #000;
@@ -90,18 +92,22 @@ body, h1, h3, p {
 	background: #fff;
 }
 
-#content input[type="image"] {
-	display: block;
-	margin: 0 auto;
-}
-
-.specimena {
-	float: right;
+#specimena {
 	height: 400px;
+	float: left;
 }
 
-.specimenb {
-	clear: right;
+#vs {
+	display: block;
+	float: left;
+	width: 75px;
+	height: 300px;
+	background: url(/static/images/fragfest/photogame-vs.png) center center no-repeat !important;
+/*	background: url(/static/images/fragfest/photogame-title.gif) center center no-repeat !important; */
+}
+
+#specimenb {
+	float: left;
 	height: 400px;
 }
 
@@ -117,23 +123,19 @@ body, h1, h3, p {
 }
 
 .form_message {
+	clear: left;
 	width: 400px;
 	display: block;
-	margin: 20px auto;
+	margin: 10px auto;
 	text-align: center;
 	border: thin solid #000;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
 
-#menu {
-	margin: 0 auto;
-}
-
 #menu ul {
-	width: 100%;
+	width: 90%;
 	list-style-type: none;
-	font-color: #f00;
 }
 
 #menu li {

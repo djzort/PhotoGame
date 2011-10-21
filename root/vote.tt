@@ -1,6 +1,6 @@
 [%- META title = 'Vote' -%]
 
-  <div class="specimen specimena">
+  <div class="specimen" id="specimena">
     <form action="/vote" method="POST" name="vote">
       <input type="hidden" name="winner" value="[% specimen1.specimen_id%]" />
       <input type="hidden" name="loser" value="[% specimen2.specimen_id%]" />
@@ -8,7 +8,9 @@
     </form>
   </div>
 
-  <div class="specimen specimena">
+  <div id="vs"></div>
+
+  <div class="specimen" id="specimena">
     <form action="/vote" method="POST" name="vote">
       <input type="hidden" name="winner" value="[% specimen2.specimen_id%]" />
       <input type="hidden" name="loser" value="[% specimen1.specimen_id%]" />
