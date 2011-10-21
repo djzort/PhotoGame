@@ -8,9 +8,11 @@
 
   <title>PhotoGame by FragFest</title>
 
-  <link rel="shortcut icon" href="/static/images/fragfest/favicon.gif" />
-  <meta name="description" content="PhotoGame, a LANparty photo taking game" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <link rel="shortcut icon" href="/static/images/fragfest/favicon.gif" />
+  <meta name="description" type="image/png"
+    content="PhotoGame, a LANparty photo taking game" />
 
   <style type="text/css" media="screen">
     @import '/static/css/fragfest.css';
@@ -41,7 +43,8 @@
     </div>
   </div>
   <div id="footer">
-      <span>Join us at <a href="http://fragfest.com.au">FragFest</a></span>
+      <span class="joinus">Join us at <a href="http://fragfest.com.au">FragFest</a></span> -
+      <span class="votes">[% total_votes %] Votes so far</span>
       <img src="/static/images/btn_120x50_powered_shadow.png" alt="Powered by Catalyst" />
   </div>
 </body>

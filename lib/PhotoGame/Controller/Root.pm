@@ -65,6 +65,9 @@ sub end : ActionClass('RenderView') {
     $c->stash->{me} = $c->session->{iam}
         if $c->session->{iam};
 
+    # total number of votes taken
+    $c->stash->{total_votes} = $c->model('DB')->get_total_votes();
+
 }
 
 ## End of Catalyst Standard Stuff

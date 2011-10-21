@@ -211,6 +211,26 @@ sub get_setting {
 
 }
 
+=head2 get_total_votes
+
+Returns the total number of votes so far (fast, as count(*) is almost
+free in MySQL)
+
+=cut
+
+sub get_total_votes {
+
+    my $self = shift;
+    my $sth = $self->dbh->prepare_cached(
+                        q/SELECT count(*) FROM votes --/);
+
+    my @results = $self->dbh->selectrow_array($sth);
+
+    return unless @results;
+    return $results[0]
+
+}
+
 =head2 get_two_random_specimens($ip)
 
 Retrieves two random specimens (that have not been voted for by $ip)
