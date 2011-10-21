@@ -11,6 +11,3 @@
 <input type="hidden" name="loser" value="[% specimen1.specimen_id%]" />
 <input type="image" src="/static/uploads/thumbs/[% specimen2.file_name %]" title="[% specimen2.orig_name %]" class="specimen" name="vote" value="vote" />
 </form>
-
-<span class="form_message">[% message %]</span>
-<span class="form_error">[% error %]</span>

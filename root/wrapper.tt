@@ -24,8 +24,10 @@
     <div id="heading"><h1><span>PhotoGame by FragFest</span></h1>
     </div>
     <div id="content">
+      [% IF error %]<span class="form_error">[% error %]</span>[% END %]
       [% content %]
       <p class="debug">[% debug %]</p>
+      [% IF message %]<span class="form_message">[% message %]</span>[% END %]
     </div>
     <div id="menu">
       <ul id="menu">

@@ -13,7 +13,6 @@ elements:
         label: "Username:"
         add_label_attributes:
             class: auto
-        container_tag: p
         attributes:
           id: username
           title: Enter your username
@@ -24,7 +23,6 @@ elements:
         label: "Password:"
         add_label_attributes:
             class: auto
-        container_tag: p
         attributes:
           id: password
           title: Enter your password

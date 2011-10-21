@@ -2,5 +2,3 @@
 
 [%# Render the HTML::FormFu Form %]
 [% form %]
-<span class="form_message">[% message %]</span>
-<span class="form_error">[% error %]</span>
