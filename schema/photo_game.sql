@@ -117,7 +117,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` (`key`, `value`) VALUES ('registration_open','1'),('submissions_open','1'),('voting_open','1'),('results_open','1'),('max_submissions','10');
+INSERT INTO `settings` (`key`, `value`) VALUES ('registration_open','1'),('submissions_open','1'),('voting_open','1'),('results_open','1'),('max_submissions','10'),('use_gravatars','0');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
