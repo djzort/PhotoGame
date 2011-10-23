@@ -4,7 +4,7 @@
    [%- IF photographer_id != photo.photographer_id -%]
       [%- SET count = 0 -%]
       [%- SET photographer_id = photo.photographer_id %]
-          <div class="submissions photographer">[% photo.full_name %]</div>
+          <div class="submissions photographer">Photos by [% photo.full_name %]</div>
    [%- END -%]
    [%- SET count = count + 1 %]
           <div class="submissions photo[% count %]"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
