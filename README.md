@@ -68,5 +68,3 @@ License
 -------
 
 This library is free software. You can redistribute it and/or modify it under the same terms as Perl itself.
-
-Some photos for the FragFest theme template set are Creative Commons, taken from http://shutterstock.com, the Lobster font is used (though not included itself). Please remove this template set if needed.
