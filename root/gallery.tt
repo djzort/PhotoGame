@@ -1,5 +1,5 @@
 [%- IF specimens -%]
-<div class="submissions">
+<div id="submissions">
    [%- FOREACH photo IN specimens -%]
    [%- IF photographer_id != photo.photographer_id -%]
       [%- SET count = 0 -%]

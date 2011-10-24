@@ -1,12 +1,12 @@
 [%- IF specimens -%]
-<div class="results">
+<div id="results">
    [%- FOREACH photo IN specimens -%]
    [%- IF votes != photo.votes -%]
       [%- SET count = count + 1 -%]
       [%- SET votes = photo.votes %]
-          <div class="results ranking"><img src="/static/images/fragfest/photogame-numbers-[% count %].png" alt="[% count %] place"/></div>
+          <div class="result ranking"><img src="/static/images/fragfest/photogame-numbers-[% count %].png" alt="[% count %] place"/></div>
    [%- END -%]
-          <div class="results photo"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
+          <div class="result photo"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
    [%- END %]
         </div>
 [%- ELSE -%]

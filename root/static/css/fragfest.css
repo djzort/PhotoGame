@@ -13,8 +13,6 @@ body, h1, h3, p {
 }
 
 #main {
-/*	background: url(container.png) top center repeat-y !important;
-	background: url(container.gif) top center repeat-y; /*stoopid ie*/ 
 	width: 875px;
 	margin: 0 auto;
 	min-height: 100%;
@@ -34,7 +32,6 @@ body, h1, h3, p {
 #menu span {
 	display: none;
 }
-
 
 #content fieldset {
 	border: thin solid #000;
@@ -131,6 +128,12 @@ body, h1, h3, p {
 	border: thin solid #000;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+}
+
+
+#results img {
+	display: block;
+	margin: 0 auto 10px auto;
 }
 
 #menu ul {

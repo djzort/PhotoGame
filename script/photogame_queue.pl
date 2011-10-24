@@ -10,8 +10,10 @@ use File::Spec;
 my $outputpath = '/home/dean/git/PhotoGame/root/static/uploads';
 my $thumbspath = File::Spec->catfile($outputpath, 'thumbs');
 my $originalspath = File::Spec->catfile($outputpath, 'originals');
+my $previewspath = File::Spec->catfile($outputpath, 'previews');
 
-my $thumbsize = 400;
+my $thumbsize = 100;
+my $previewsize = 400;
 my $viewsize = 1000;
 
 my $dbname = 'photo_game';
@@ -83,7 +85,7 @@ for my $file (@$images) {
 
     $debug && print "Copied original\n";
 
-    # create a thumbnail at 200x200ish to thumbs/
+    # create a thumbnail in thumbs/
     my $thumb = $image->scale(xpixels => $thumbsize,
                             ypixels => $thumbsize,
                             type => 'min');
@@ -102,6 +104,16 @@ for my $file (@$images) {
         or next; # FIXME ?
 
     $debug && print "Wrote out view\n";
+
+    # create a preview in /preview
+    my $preview = $image->scale(xpixels => $previewsize,
+                                ypixels => $previewsize,
+                                type => 'min');
+    my $previewfile = File::Spec->catfile($previewspath,$filename);
+    $view->write( file => $previewfile )
+        or next; # FIXME ?
+
+    $debug && print "Wrote out preview\n";
 
     # add to specimens
     add_to_specimens($file);
