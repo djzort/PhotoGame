@@ -95,6 +95,16 @@ for my $file (@$images) {
 
     $debug && print "Wrote out thumb\n";
 
+    # create a preview in /preview
+    my $preview = $image->scale(xpixels => $previewsize,
+                                ypixels => $previewsize,
+                                type => 'min');
+    my $previewfile = File::Spec->catfile($previewspath,$filename);
+    $preview->write( file => $previewfile )
+        or next; # FIXME ?
+
+    $debug && print "Wrote out preview\n";
+
     # create a view at 1024x768ish to /
     my $view = $image->scale(xpixels => $viewsize,
                                 ypixels => $viewsize,
@@ -104,16 +114,6 @@ for my $file (@$images) {
         or next; # FIXME ?
 
     $debug && print "Wrote out view\n";
-
-    # create a preview in /preview
-    my $preview = $image->scale(xpixels => $previewsize,
-                                ypixels => $previewsize,
-                                type => 'min');
-    my $previewfile = File::Spec->catfile($previewspath,$filename);
-    $view->write( file => $previewfile )
-        or next; # FIXME ?
-
-    $debug && print "Wrote out preview\n";
 
     # add to specimens
     add_to_specimens($file);
