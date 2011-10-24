@@ -10,5 +10,5 @@
    [%- END %]
         </div>
 [%- ELSE -%]
-[%- SET form_message="No results yet" -%]
+[%- SET message="No results yet" -%]
 [%- END -%]
