@@ -55,6 +55,7 @@ CREATE TABLE `photographers` (
   `username` varchar(255) NOT NULL COMMENT 'Username',
   `password` varchar(255) NOT NULL COMMENT 'Password',
   `creation_ip` varchar(255) NOT NULL COMMENT 'IP address at creation of user',
+  `avatar` varchar(255) NOT NULL COMMENT 'Avatar for the user',
   PRIMARY KEY (`photographer_id`),
   KEY `username_idx` (`username`,`password`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='People participating in the game';
@@ -66,7 +67,6 @@ CREATE TABLE `photographers` (
 
 LOCK TABLES `photographers` WRITE;
 /*!40000 ALTER TABLE `photographers` DISABLE KEYS */;
-INSERT INTO `photographers` (`photographer_id`, `full_name`, `email_addr`, `username`, `password`, `creation_ip`) VALUES (14,'Dean Hamstead','dean@fragfest.com.au','dean','8b5e3f869eba5ed179d011414d1cdc616e30f816','127.0.0.1');
 /*!40000 ALTER TABLE `photographers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +117,6 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` (`key`, `value`) VALUES ('registration_open','1'),('submissions_open','1'),('voting_open','1'),('results_open','1'),('max_submissions','10'),('use_gravatars','0');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +144,6 @@ CREATE TABLE `specimens` (
 
 LOCK TABLES `specimens` WRITE;
 /*!40000 ALTER TABLE `specimens` DISABLE KEYS */;
-INSERT INTO `specimens` (`specimen_id`, `file_name`, `photographer_id`, `orig_name`) VALUES (13,'FGmhzqHduV671vChj71xAQ08.jpg',14,'IMG_0486.jpg'),(14,'FG5EBw83AGn_4RQf4ePxnU5e.jpg',14,'IMG_0489.jpg'),(15,'FG39lL2CvtZH94YzNyHU8LZQ.jpg',14,'Respawn_V8-79.jpg'),(16,'FGCm0BfwDRLVOF1tNXFshMm2.jpg',14,'rflan26-081.jpg'),(17,'FGeL1I8iIW7v5UKWFtsa73aC.jpg',14,'educate america.jpg'),(18,'FGuwYPOHLpztYJseipf7YvyE.jpg',14,'IMG_7431.jpg');
 /*!40000 ALTER TABLE `specimens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-18 22:57:05
+-- Dump completed on 2011-10-25 22:45:31
