@@ -51,7 +51,7 @@ sub add_to_specimens {
     my $file = shift or return;
 
     return $dbh->do(
-    q|INSERT INTO specimens (file_name, photographer_id, orig_name) VALUES (?,?,?)|,
+    q|INSERT INTO specimens (file_name, photographer_id, orig_name) VALUES (?,?,?) --|,
     undef,
     +(File::Spec->splitpath($file->{file_name}))[2],
     $file->{photographer_id},
@@ -63,7 +63,7 @@ sub add_to_specimens {
 ## main program ##
 
 my $images = $dbh->selectall_arrayref(
-    q|SELECT * FROM queue ORDER BY id|,{ Slice => {} });
+    q|SELECT * FROM queue ORDER BY id --|,{ Slice => {} });
 
 $debug && printf('Found %d images in queue', scalar @$images);
 
@@ -144,32 +144,38 @@ $count = 0;
 $debug && print "Checking all gravatars are present\n";
 
 my $photographers = $dbh->selectall_arrayref(
-    q|SELECT email_addr FROM photographers|,{ Slice => ['email_addr'] });
+    q|SELECT * FROM photographers --|,{ Slice => {} });
 
 $debug && printf("Found %d photographers\n", scalar @$photographers);
 
-for my $photographer (map {@$_} @$photographers) {
+for my $photographer (@$photographers) {
 
-    my $hex = md5_hex(lc $photographer) . '.jpg';
+    my $hex = md5_hex(lc $photographer->{email_addr}) . '.jpg';
     my $gravatarfile = File::Spec->catfile($gravatarspath,$hex);
     next if -e $gravatarfile;
 
     my $uri = sprintf('http://gravatar.com/avatar/%s?r=%s&d=%s',
                           $hex,$gravatarrating,$gravatarunknown);
 
-    $debug && printf("For %s uri is %s\n",$photographer,$uri);
+    $debug && printf("For '%s' uri is %s\n",$photographer->{full_name},$uri);
 
     my $gravatar = get($uri);
     next unless $gravatar;
 
-    $count++;
     open( my $fh, '>', $gravatarfile )
         or next;
     print $fh $gravatar;
     close $fh;
 
-    $debug && printf("Completed processing %s, wrote file %s\n",$photographer,$gravatarfile);
+    $dbh->do(
+        q|UPDATE photographers SET avatar = ? WHERE photographer_id = ? --|,
+        undef,$hex, $photographer->{photographer_id}
+    );
 
+    $debug && printf("Completed processing '%s', wrote file %s\n",
+                  $photographer->{full_name},$gravatarfile);
+
+    $count++;
 }
 
 $debug && print "Processed $count gravatars\n";

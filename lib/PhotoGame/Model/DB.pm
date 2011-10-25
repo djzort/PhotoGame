@@ -110,6 +110,7 @@ sub get_all_specimens {
                 `full_name`,
                 `email_addr`,
                 `file_name`,
+                `avatar`,
                 `orig_name`
             FROM `specimens`
             INNER JOIN `photographers`

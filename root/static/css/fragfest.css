@@ -108,7 +108,7 @@ body, h1, h3, p {
 	height: 400px;
 }
 
-#submissions {
+#gallery {
 	border: thin solid #000;
 	display: block;
 	-moz-border-radius: 10px;
@@ -116,11 +116,19 @@ body, h1, h3, p {
 	padding: 10px;
 }
 
-#submissions .photographer {
-
+#gallery .photographer {
+	display: block;
+	float: left;
+	height: 100px;
+	padding: 10px;
 }
 
-#submissions .photo {
+#gallery .gravatar {
+	display: block;
+	margin: 0 auto;
+}
+
+#gallery .photo {
 	display: inline;
 	padding: 10px;
 }
