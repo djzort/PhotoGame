@@ -29,6 +29,8 @@ requires 'Config::General'; # This should reflect the config file format you've 
 
 # scripts need
 requires 'Imager';
+requires 'Digest::MD5';
+requires 'LWP::Simple';
 
 test_requires 'Test::More' => '0.88';
 catalyst;

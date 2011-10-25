@@ -6,11 +6,17 @@ use warnings;
 use DBI;
 use Imager;
 use File::Spec;
+use LWP::Simple;
+use Digest::MD5 qw(md5_hex);
 
-my $outputpath = '/home/dean/git/PhotoGame/root/static/uploads';
-my $thumbspath = File::Spec->catfile($outputpath, 'thumbs');
-my $originalspath = File::Spec->catfile($outputpath, 'originals');
-my $previewspath = File::Spec->catfile($outputpath, 'previews');
+my $outputpath = '/home/dean/git/PhotoGame/root/static';
+my $thumbspath = File::Spec->catfile($outputpath, 'uploads', 'thumbs');
+my $originalspath = File::Spec->catfile($outputpath, 'uploads', 'originals');
+my $previewspath = File::Spec->catfile($outputpath, 'uploads', 'previews');
+my $gravatarspath = File::Spec->catfile($outputpath, 'gravatars');
+
+my $gravatarrating = 'pg';
+my $gravatarunknown = 'retro';
 
 my $thumbsize = 100;
 my $previewsize = 400;
@@ -54,8 +60,12 @@ sub add_to_specimens {
 
 }
 
+## main program ##
+
 my $images = $dbh->selectall_arrayref(
     q|SELECT * FROM queue ORDER BY id|,{ Slice => {} });
+
+$debug && printf('Found %d images in queue', scalar @$images);
 
 my $count = 0;
 
@@ -128,5 +138,40 @@ for my $file (@$images) {
 }
 
 $debug && print "Processed $count files\n";
+
+$count = 0;
+
+$debug && print "Checking all gravatars are present\n";
+
+my $photographers = $dbh->selectall_arrayref(
+    q|SELECT email_addr FROM photographers|,{ Slice => ['email_addr'] });
+
+$debug && printf("Found %d photographers\n", scalar @$photographers);
+
+for my $photographer (map {@$_} @$photographers) {
+
+    my $hex = md5_hex(lc $photographer) . '.jpg';
+    my $gravatarfile = File::Spec->catfile($gravatarspath,$hex);
+    next if -e $gravatarfile;
+
+    my $uri = sprintf('http://gravatar.com/avatar/%s?r=%s&d=%s',
+                          $hex,$gravatarrating,$gravatarunknown);
+
+    $debug && printf("For %s uri is %s\n",$photographer,$uri);
+
+    my $gravatar = get($uri);
+    next unless $gravatar;
+
+    $count++;
+    open( my $fh, '>', $gravatarfile )
+        or next;
+    print $fh $gravatar;
+    close $fh;
+
+    $debug && printf("Completed processing %s, wrote file %s\n",$photographer,$gravatarfile);
+
+}
+
+$debug && print "Processed $count gravatars\n";
 
 $dbh->disconnect();
