@@ -108,6 +108,23 @@ body, h1, h3, p {
 	height: 400px;
 }
 
+#submissions {
+	border: thin solid #000;
+	display: block;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+#submissions .photographer {
+
+}
+
+#submissions .photo {
+	display: inline;
+	padding: 10px;
+}
+
 .form_error {
 	width: 400px;
 	display: block;
@@ -142,41 +159,69 @@ body, h1, h3, p {
 }
 
 #menu li {
-	float: left;
+    float: left;
 }
 
 #menu a {
 	width: 250px;
-	display: block;
 	height: 80px;
+	display: block;
 }
 
 #menu li.results {
 	background: url(/static/images/fragfest/photogame-menu-results.png) top center no-repeat;
 }
 
+#menu li.results:hover {
+	background: url(/static/images/fragfest/photogame-menu-results-rollover.png) top center no-repeat;
+}
+
 #menu li.gallery {
 	background: url(/static/images/fragfest/photogame-menu-gallery.png) top center no-repeat;
+}
+
+#menu li.gallery:hover {
+	background: url(/static/images/fragfest/photogame-menu-gallery-rollover.png) top center no-repeat;
 }
 
 #menu li.vote {
 	background: url(/static/images/fragfest/photogame-menu-vote.png) top center no-repeat;
 }
 
+#menu li.vote:hover {
+	background: url(/static/images/fragfest/photogame-menu-vote-rollover.png) top center no-repeat;
+}
+
 #menu li.login {
 	background: url(/static/images/fragfest/photogame-menu-login.png) top center no-repeat;
+}
+
+#menu li.login:hover {
+	background: url(/static/images/fragfest/photogame-menu-login-rollover.png) top center no-repeat;
 }
 
 #menu li.upload {
 	background: url(/static/images/fragfest/photogame-menu-upload.png) top center no-repeat;
 }
 
+#menu li.upload:hover {
+	background: url(/static/images/fragfest/photogame-menu-upload-rollover.png) top center no-repeat;
+}
+
 #menu li.logout {
 	background: url(/static/images/fragfest/photogame-menu-logout.png) top center no-repeat;
 }
 
+#menu li.logout:hover {
+	background: url(/static/images/fragfest/photogame-menu-logout-rollover.png) top center no-repeat;
+}
+
 #menu li.register {
 	background: url(/static/images/fragfest/photogame-menu-register.png) top center no-repeat;
+}
+
+#menu li.register:hover {
+	background: url(/static/images/fragfest/photogame-menu-register-rollover.png) top center no-repeat;
 }
 
 #footer {
