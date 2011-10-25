@@ -105,7 +105,10 @@ sub get_all_specimens {
 
     my $self = shift;
 
+
     my $sth = $self->dbh->prepare_cached(
+
+        $self->get_setting('use_gravatars') ?
         q|SELECT `specimens`.`photographer_id`,
                 `full_name`,
                 `email_addr`,
@@ -117,6 +120,19 @@ sub get_all_specimens {
             ON `specimens`.`photographer_id` =
                 `photographers`.`photographer_id`
                 --|
+        : q|SELECT `specimens`.`photographer_id`,
+                `full_name`,
+                `email_addr`,
+                `file_name`,
+                `orig_name`
+            FROM `specimens`
+            INNER JOIN `photographers`
+            ON `specimens`.`photographer_id` =
+                `photographers`.`photographer_id`
+                --|
+
+
+
     );
 
     my $results = $self->dbh->selectall_arrayref(

@@ -5,8 +5,8 @@
       [%- SET count = 0 -%]
       [%- SET photographer_id = photo.photographer_id %]
           <div class="submission photographer">
-          [%- IF photo.avatar %]<img class="gravatar" src="/static/gravatars/[% photo.avatar %]" alt="[% photo.full_name %]" />[% END -%]
-          <span>[% photo.full_name %]</span></div>
+          [%- IF photo.avatar %]<img class="gravatar" src="/static/gravatars/[% photo.avatar %]" alt="[% photo.full_name %]" /><span>[% ELSE %]<span>Photos from<br />[% END -%]
+          [% photo.full_name %]</span></div>
    [%- END %]
           <div class="submission photo"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
    [%- SET count = count + 1 %]
