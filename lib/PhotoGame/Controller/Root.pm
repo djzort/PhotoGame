@@ -289,16 +289,36 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     }
 
-    my $maxsubmissions = $c->model('DB')->get_setting('max_submissions');
-    my @submissions = $c->model('DB')->get_my_specimen($c->session->{iam}->{photographer_id});
-    my @queue = $c->model('DB')->get_my_queue($c->session->{iam}->{photographer_id});
+    $c->stash->{maxsubmissions} = $c->model('DB')->get_setting('max_submissions');
+    my @specimens = $c->model('DB')->get_my_specimen(
+                                $c->session->{iam}->{photographer_id});
+    my @queue = $c->model('DB')->get_my_queue(
+                                $c->session->{iam}->{photographer_id});
 
-    unless ( (scalar @submissions + scalar @queue) < $maxsubmissions ) {
+    # generate forms to go along with images
+    for my $item (@specimens) {
 
-        $c->stash->{message} = sprintf('You have reached the submissions limit of %d', $maxsubmissions);
-        $c->detach('message');
+        my $form = $self->form;
+        $form->load_config_file('upload_image.yml');
+        $form->query( $c->request );
+        $form->process;
+
+        my $new = $form->element({  type  => 'Hidden',
+                                    name  => 'specimen_id',
+                                    value => $item->{specimen_id},
+                                });
+
+        my $position = $form->get_all_element({ type => 'Submit',
+                                                name => 'submit' });
+
+        $form->insert_before( $new, $position );
+
+        $item->{form} = $form;
 
     }
+
+    $c->stash->{specimens} = \@specimens;
+    $c->stash->{queue} = \@queue;
 
 }
 

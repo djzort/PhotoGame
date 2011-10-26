@@ -1,4 +1,23 @@
 [%- META title = 'Upload' -%]
 
+[%- IF ( ( $specimens.size + $queue.size ) >= $maxsubmissions ) -%]
+[%- SET message = "You have reached the submissions limit of $maxsubmissions" -%]
+[%- ELSE -%]
 [%# Render the HTML::FormFu Form %]
 [% form %]
+[%- END -%]
+
+[% FOREACH photo IN specimens %]
+[%- SET count = count + 1 -%]
+
+<div class="myspecimen">
+    <img src="/static/uploads/previews/[% photo.file_name %]" alt="[% photo.file_name %]" />
+    <div>
+        <span>[% count %]/[% maxsubmissions %]</span>
+        [% photo.form %]
+    </div>
+</div>
+
+[% END %]
+
+
