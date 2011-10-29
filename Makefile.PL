@@ -22,6 +22,7 @@ requires 'Catalyst::Controller::HTML::FormFu';
 requires 'DBD::mysql';
 requires 'File::Spec';
 requires 'File::Temp';
+requires 'List::Util';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'Config::General'; # This should reflect the config file format you've chosen

@@ -1,6 +1,6 @@
 ---
 action: /upload
-indicator: submit
+indicator: photo
 output_processors:
   - Indent
 

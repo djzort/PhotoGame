@@ -1,8 +1,12 @@
 [%- META title = 'Upload' -%]
 [%- SET count = 0 -%]
 
-[%- IF ( ( $specimens.size + $queue.size ) >= $maxsubmissions ) -%]
-[%- SET message = "You have reached the submissions limit of $maxsubmissions" -%]
+[%- IF queue.size -%]
+<span class="form_message">There is [% queue.size %] of your items in the processing queue</span>
+[%- END -%]
+
+[%- IF ( ( specimens.size + queue.size ) >= maxsubmissions ) -%]
+<span class="form_message">You have reached the submissions limit ([% maxsubmissions %])</span>
 [%- ELSE -%]
 [%# Render the HTML::FormFu Form %]
 [% form %]

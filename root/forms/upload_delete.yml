@@ -1,21 +1,12 @@
 ---
 action: /upload
-indicator: submit
+indicator: specimen_id
 output_processors:
   - Indent
 
 elements:
-  - type: File
-    name: photo
-    label: "Replace:"
-    attributes:
-      id: photo
-      title: Upload a new photo
   - type: Submit
     name: submit
-    value: Go
-  - type: Submit
-    name: delete
     value: Delete
 
 constraints:

@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use File::Spec;
 use File::Temp qw(tempfile);
-use List::Utils qw(first);
+use List::Util qw(first);
 
 BEGIN { extends 'Catalyst::Controller::HTML::FormFu' }
 
@@ -276,7 +276,10 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
-    unless ( $c->session->{iam} ) {
+    my $form  = $c->stash->{form};
+    my $me = $c->session->{iam};
+
+    unless ( $me ) {
 
         $c->stash->{message} = 'You must be logged in to play the game!';
         $c->detach('message');
@@ -290,19 +293,99 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     }
 
+    ## Load specimens
+
     $c->stash->{maxsubmissions} = $c->model('DB')->get_setting('max_submissions');
     my @specimens = $c->model('DB')->get_my_specimen(
                                 $c->session->{iam}->{photographer_id});
-    my @queue = $c->model('DB')->get_my_queue(
-                                $c->session->{iam}->{photographer_id});
+    $c->stash->{specimens} = \@specimens;
 
-    # generate forms to go along with images
+    ## First try to delete
+
+    my $delete_form = $self->form;
+    $delete_form->load_config_file('upload_delete.yml');
+    $delete_form->process();
+
+    if ( $delete_form->submitted_and_valid ) {
+
+        if ( my $specimen_id = $c->request->param('specimen_id') ) {
+
+            if (first {$specimen_id == $_->{specimen_id}} @specimens) {
+    
+                $c->model('DB')->delete_specimen(
+                        specimen_id     => $specimen_id,
+                        photographer_id => $me->{photographer_id},
+                        );
+
+                $c->stash->{message} = 'Specimen deleted';
+
+                @specimens = grep {$specimen_id != $_->{specimen_id}} @specimens;
+    
+            } else {
+    
+                $c->stash->{message} = 'You dont own that specimen';
+                $c->detach('message');
+    
+            }
+    
+        }
+    
+    }
+
+    ## Second try uploads
+
+    if ( $form->submitted_and_valid ) {
+
+        my $photo = $c->request->upload('photo');
+        my ( $suffix ) = $photo->filename =~ m{(\.\w+)$};
+        $suffix ||= 'jpg';
+    
+        my ( $fh, $filename );
+    
+        eval {
+            ( $fh, $filename ) = tempfile(
+               'FGXXXXXXXXXXXXXXXXXXXXXX',
+                SUFFIX => lc($suffix),
+                UNLINK => 0,
+                DIR => $c->config->{queuepath}
+                );
+        };
+    
+        if ($@) {
+    
+            $c->stash->{error} = "Error writing file: $@";
+            return 1
+    
+        }
+    
+        if ( $photo->copy_to( $fh ) ) {
+    
+            $c->model('DB')->add_queue(
+                                $photo->filename,
+                                $filename,
+                                $me->{photographer_id},
+                                $c->request->upload('specimen_id')
+                                );
+    
+            $c->stash->{message} = 'File submitted to processing queue';
+    
+        } else {
+    
+            $c->stash->{error} = 'Failed to save file';
+    
+        }
+
+    } elsif ( $form->submitted )  {
+
+        $c->stash->{message} = 'Form not valid';
+
+    }
+
+    ## Finale, generate forms to go along with images
     for my $item (@specimens) {
 
         my $form = $self->form;
-        $form->load_config_file('upload_image.yml');
-        $form->query( $c->request );
-        $form->process;
+        $form->load_config_file('upload_delete.yml');
 
         my $new = $form->element({  type  => 'Hidden',
                                     name  => 'specimen_id',
@@ -318,89 +401,11 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     }
 
-    $c->stash->{specimens} = \@specimens;
+    ## Load the queue
+
+    my @queue = $c->model('DB')->get_my_queue(
+                                $c->session->{iam}->{photographer_id});
     $c->stash->{queue} = \@queue;
-
-}
-
-sub upload_FORM_RENDER {
-
-}
-
-sub upload_FORM_NOT_SUBMITTED {
-
-}
-
-sub upload_FORM_VALID {
-
-    my ( $self, $c ) = @_;
-
-    my $me = $c->session->{iam};
-    my $photo = $c->request->upload('photo');
-    my ( $suffix ) = $photo->filename =~ m{(\.\w+)$};
-    $suffix ||= 'jpg';
-
-    my ( $fh, $filename );
-
-    eval {
-        ( $fh, $filename ) = tempfile(
-           'FGXXXXXXXXXXXXXXXXXXXXXX',
-            SUFFIX => lc($suffix),
-            UNLINK => 0,
-            DIR => $c->config->{queuepath}
-            );
-    };
-
-    if ($@) {
-
-        $c->stash->{error} = "Error writing file: $@";
-        return 1
-
-    }
-
-    if ( $photo->copy_to( $fh ) ) {
-
-        if ( my $specimen_id = $c->request->upload('specimen_id') ) {
-
-            if (first {$specimen_id == $_->{specimen_id}}
-                    @{$c->stash->{specimens}}) {
-
-                $c->model('DB')->delete_specimen(
-                        specimen_id     => $specimen_id,
-                        photographer_id => $me->{photographer_id},
-                        )
-
-            } else {
-
-                $c->stash->{message} = 'You dont own that specimen';
-                $c->detach('message');
-
-            }
-
-        }
-
-        $c->model('DB')->add_queue(
-                            $photo->filename,
-                            $filename,
-                            $me->{photographer_id},
-                            $c->request->upload('specimen_id')
-                            );
-
-        $c->stash->{message} = 'file submitted to processing queue';
-
-    } else {
-
-        $c->stash->{error} = 'failed to save file';
-
-    }
-
-}
-
-sub upload_FORM_NOT_VALID {
-
-    my ( $self, $c ) = @_;
-    #$c->stash->{template} = 'upload.tt';
-    $c->stash->{message} = 'form not valid';
 
 }
 
