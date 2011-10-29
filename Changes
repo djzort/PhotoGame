@@ -1,5 +1,6 @@
 This file documents the revision history for Perl application PhotoGame.
 
+        - Added favicon
         - Changed some paths around
         - queue converts all images to jpegs and dies when debugging
 
