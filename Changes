@@ -1,5 +1,8 @@
 This file documents the revision history for Perl application PhotoGame.
 
+        - Changed some paths around
+        - queue converts all images to jpegs and dies when debugging
+
 0.03  2011-10-29 21:42:00
         - added 'total_votes' values
         - updates to fragfest template and basic template

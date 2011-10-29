@@ -13,7 +13,7 @@ my $outputpath    = '/home/dean/git/PhotoGame/root/static';
 my $thumbspath    = File::Spec->catfile($outputpath, 'uploads', 'thumbs');
 my $originalspath = File::Spec->catfile($outputpath, 'uploads', 'originals');
 my $previewspath  = File::Spec->catfile($outputpath, 'uploads', 'previews');
-my $viewspath     = File::Spec->catfile($outputpath, 'uploads', 'views');
+my $viewpath     = File::Spec->catfile($outputpath, 'uploads', 'views');
 my $gravatarspath = File::Spec->catfile($outputpath, 'gravatars');
 
 my $gravatarrating  = 'pg';
@@ -22,6 +22,7 @@ my $gravatarunknown = 'retro';
 my $thumbsize   = 100;
 my $previewsize = 400;
 my $viewsize    = 1000;
+my %fileoptions = ( type =>'jpeg',jpegquality=>90 );
 
 my $dbname = 'photo_game';
 my $dbuser = 'photo_game';
@@ -78,7 +79,11 @@ for my $file (@$images) {
 
     my $filename = +(File::Spec->splitpath($file->{file_name}))[2];
 
-    $debug && print "Filename is $filename\n";
+    $debug && print "In filename is $filename\n";
+
+    $filename =~ s/\.[A-z0-9]+$/.jpg/;
+
+    $debug && print "Out filename will be $filename\n";
 
     # open original file
     my $image = Imager->new;
@@ -96,8 +101,8 @@ for my $file (@$images) {
 
     # copy original to originals/
     my $originalfile = File::Spec->catfile($originalspath,$filename);
-    $image->write( file => $originalfile )
-        or next; # FIXME ?
+    $image->write( file => $originalfile, %fileoptions )
+        or $debug ? die $image->errstr : next;
 
     $debug && print "Copied original\n";
 
@@ -106,8 +111,8 @@ for my $file (@$images) {
                             ypixels => $thumbsize,
                             type => 'min');
     my $thumbfile = File::Spec->catfile($thumbspath,$filename);
-    $thumb->write( file => $thumbfile )
-        or next; # FIXME ?
+    $thumb->write( file => $thumbfile, %fileoptions )
+        or $debug ? die $thumb->errstr : next;
 
     $debug && print "Wrote out thumb\n";
 
@@ -116,8 +121,8 @@ for my $file (@$images) {
                                 ypixels => $previewsize,
                                 type => 'min');
     my $previewfile = File::Spec->catfile($previewspath,$filename);
-    $preview->write( file => $previewfile )
-        or next; # FIXME ?
+    $preview->write( file => $previewfile, %fileoptions )
+        or $debug ? die $preview->errstr : next;
 
     $debug && print "Wrote out preview\n";
 
@@ -125,9 +130,9 @@ for my $file (@$images) {
     my $view = $image->scale(xpixels => $viewsize,
                                 ypixels => $viewsize,
                                 type => 'min');
-    my $viewfile = File::Spec->catfile($viewspath,$filename);
-    $view->write( file => $viewfile )
-        or next; # FIXME ?
+    my $viewfile = File::Spec->catfile($viewpath,$filename);
+    $view->write( file => $viewfile, %fileoptions )
+        or $debug ? die $view->errstr : next;
 
     $debug && print "Wrote out view\n";
 
