@@ -13,6 +13,7 @@ my $outputpath    = '/home/dean/git/PhotoGame/root/static';
 my $thumbspath    = File::Spec->catfile($outputpath, 'uploads', 'thumbs');
 my $originalspath = File::Spec->catfile($outputpath, 'uploads', 'originals');
 my $previewspath  = File::Spec->catfile($outputpath, 'uploads', 'previews');
+my $viewspath     = File::Spec->catfile($outputpath, 'uploads', 'views');
 my $gravatarspath = File::Spec->catfile($outputpath, 'gravatars');
 
 my $gravatarrating  = 'pg';
@@ -124,7 +125,7 @@ for my $file (@$images) {
     my $view = $image->scale(xpixels => $viewsize,
                                 ypixels => $viewsize,
                                 type => 'min');
-    my $viewfile = File::Spec->catfile($outputpath,$filename);
+    my $viewfile = File::Spec->catfile($viewspath,$filename);
     $view->write( file => $viewfile )
         or next; # FIXME ?
 

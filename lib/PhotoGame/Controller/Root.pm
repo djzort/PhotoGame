@@ -344,7 +344,7 @@ sub upload : Path('upload') : Args(0) : FormConfig {
     
         eval {
             ( $fh, $filename ) = tempfile(
-               'FGXXXXXXXXXXXXXXXXXXXXXX',
+               'PGXXXXXXXXXXXXXXXXXXXXXX',
                 SUFFIX => lc($suffix),
                 UNLINK => 0,
                 DIR => $c->config->{queuepath}
