@@ -93,6 +93,26 @@ sub create_photographer {
 
 }
 
+=head2 delete_specimen
+
+=cut
+
+sub delete_specimen {
+
+    my $self = shift;
+    my %args = @_;
+
+    return $self->dbh->do(
+                q|DELETE FROM specimens
+                    WHERE specimen_id = ?
+                        AND photographer_id = ?|,
+                undef,
+                $args{specimen_id},
+                $args{photographer_id}
+                )
+
+}
+
 =head2 get_all_specimens
 
 Returns a list or arrayref containing hashrefs, each describing one of

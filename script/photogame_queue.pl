@@ -9,18 +9,18 @@ use File::Spec;
 use LWP::Simple;
 use Digest::MD5 qw(md5_hex);
 
-my $outputpath = '/home/dean/git/PhotoGame/root/static';
-my $thumbspath = File::Spec->catfile($outputpath, 'uploads', 'thumbs');
+my $outputpath    = '/home/dean/git/PhotoGame/root/static';
+my $thumbspath    = File::Spec->catfile($outputpath, 'uploads', 'thumbs');
 my $originalspath = File::Spec->catfile($outputpath, 'uploads', 'originals');
-my $previewspath = File::Spec->catfile($outputpath, 'uploads', 'previews');
+my $previewspath  = File::Spec->catfile($outputpath, 'uploads', 'previews');
 my $gravatarspath = File::Spec->catfile($outputpath, 'gravatars');
 
-my $gravatarrating = 'pg';
+my $gravatarrating  = 'pg';
 my $gravatarunknown = 'retro';
 
-my $thumbsize = 100;
+my $thumbsize   = 100;
 my $previewsize = 400;
-my $viewsize = 1000;
+my $viewsize    = 1000;
 
 my $dbname = 'photo_game';
 my $dbuser = 'photo_game';
@@ -42,6 +42,7 @@ my $dbh = DBI->connect("dbi:mysql:$dbname",$dbuser, $dbpass, {} )
 sub delete_from_queue {
 
     my $id = shift or return;
+    $debug && print "deleting $id from queue\n";
     return $dbh->do(q|DELETE FROM queue WHERE id = ?|,undef,$id)
 
 }
@@ -80,9 +81,12 @@ for my $file (@$images) {
     # open original file
     my $image = Imager->new;
     unless ($image->read( file => $file->{file_name} )) {
+
         delete_from_queue($file->{id});
+
         $debug && printf(q|Couldnt open %s because '%s', removing from queue|."\n",
-		$file->{file_name},$image->errstr());
+            $file->{file_name},$image->errstr());
+
         next FILESLOOP
     }
 

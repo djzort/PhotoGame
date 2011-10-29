@@ -62,15 +62,6 @@ CREATE TABLE `photographers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `photographers`
---
-
-LOCK TABLES `photographers` WRITE;
-/*!40000 ALTER TABLE `photographers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `photographers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `queue`
 --
 
@@ -87,15 +78,6 @@ CREATE TABLE `queue` (
   CONSTRAINT `fk_photographer_id_2` FOREIGN KEY (`photographer_id`) REFERENCES `photographers` (`photographer_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Queue of incoming specimens';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `queue`
---
-
-LOCK TABLES `queue` WRITE;
-/*!40000 ALTER TABLE `queue` DISABLE KEYS */;
-/*!40000 ALTER TABLE `queue` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `settings`
@@ -117,6 +99,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` (`key`, `value`) VALUES ('registration_open','1'),('submissions_open','1'),('voting_open','1'),('max_submissions','10'),('results_open','1'),('use_gravatars','1');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,15 +122,6 @@ CREATE TABLE `specimens` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `specimens`
---
-
-LOCK TABLES `specimens` WRITE;
-/*!40000 ALTER TABLE `specimens` DISABLE KEYS */;
-/*!40000 ALTER TABLE `specimens` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `votes`
 --
 
@@ -167,14 +141,6 @@ CREATE TABLE `votes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='votes for specimens';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `votes`
---
-
-LOCK TABLES `votes` WRITE;
-/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -185,4 +151,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-25 22:45:31
+-- Dump completed on 2011-10-29 16:40:26

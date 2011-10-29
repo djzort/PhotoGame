@@ -1,4 +1,5 @@
 [%- META title = 'Upload' -%]
+[%- SET count = 0 -%]
 
 [%- IF ( ( $specimens.size + $queue.size ) >= $maxsubmissions ) -%]
 [%- SET message = "You have reached the submissions limit of $maxsubmissions" -%]

@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use File::Spec;
 use File::Temp qw(tempfile);
+use List::Utils qw(first);
 
 BEGIN { extends 'Catalyst::Controller::HTML::FormFu' }
 
@@ -359,7 +360,21 @@ sub upload_FORM_VALID {
 
     if ( $photo->copy_to( $fh ) ) {
 
-        $c->model('DB')->add_queue( $photo->filename, $filename, $me->{photographer_id} );
+        if ( $c->request->upload('specimen_id') ) {
+
+            unless (grep {} @{$c->stash->{specimens}}) {
+                $c->stash->{message} = 'You dont own that specimen';
+                $c->detach('message');
+            }
+
+        }
+
+        $c->model('DB')->add_queue(
+                            $photo->filename,
+                            $filename,
+                            $me->{photographer_id},
+                            $c->request->upload('specimen_id')
+                            );
 
         $c->stash->{message} = 'file submitted to processing queue';
 
