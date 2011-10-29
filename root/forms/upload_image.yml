@@ -1,0 +1,22 @@
+---
+action: /upload
+indicator: submit
+output_processors:
+  - Indent
+
+elements:
+  - type: File
+    name: photo
+    label: "Replace:"
+    attributes:
+      id: photo
+      title: Upload a new photo
+  - type: Submit
+    name: submit
+    value: Go
+  - type: Submit
+    name: delete
+    value: Delete
+
+constraints:
+  - SingleValue
