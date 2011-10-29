@@ -52,12 +52,13 @@ sub add_to_specimens {
     my $file = shift or return;
 
     return $dbh->do(
-    q|INSERT INTO specimens (file_name, photographer_id, orig_name) VALUES (?,?,?) --|,
-    undef,
-    +(File::Spec->splitpath($file->{file_name}))[2],
-    $file->{photographer_id},
-    $file->{orig_name}
-    );
+        q|INSERT INTO specimens (file_name, photographer_id, orig_name)
+            VALUES (?,?,?) --|,
+            undef,
+            +(File::Spec->splitpath($file->{file_name}))[2],
+            $file->{photographer_id},
+            $file->{orig_name}
+        );
 
 }
 

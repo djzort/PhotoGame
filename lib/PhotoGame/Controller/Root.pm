@@ -360,11 +360,21 @@ sub upload_FORM_VALID {
 
     if ( $photo->copy_to( $fh ) ) {
 
-        if ( $c->request->upload('specimen_id') ) {
+        if ( my $specimen_id = $c->request->upload('specimen_id') ) {
 
-            unless (grep {} @{$c->stash->{specimens}}) {
+            if (first {$specimen_id == $_->{specimen_id}}
+                    @{$c->stash->{specimens}}) {
+
+                $c->model('DB')->delete_specimen(
+                        specimen_id     => $specimen_id,
+                        photographer_id => $me->{photographer_id},
+                        )
+
+            } else {
+
                 $c->stash->{message} = 'You dont own that specimen';
                 $c->detach('message');
+
             }
 
         }
