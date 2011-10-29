@@ -52,12 +52,13 @@ sub delete_from_queue {
 sub add_to_specimens {
 
     my $file = shift or return;
+    my $filename = shift or return;
 
     return $dbh->do(
         q|INSERT INTO specimens (file_name, photographer_id, orig_name)
             VALUES (?,?,?) --|,
             undef,
-            +(File::Spec->splitpath($file->{file_name}))[2],
+            $filename,
             $file->{photographer_id},
             $file->{orig_name}
         );
@@ -137,7 +138,7 @@ for my $file (@$images) {
     $debug && print "Wrote out view\n";
 
     # add to specimens
-    add_to_specimens($file);
+    add_to_specimens($file,$filename);
 
     $debug && print "$filename Done!\n";
 

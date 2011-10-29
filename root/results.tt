@@ -6,7 +6,7 @@
       [%- SET votes = photo.votes %]
           <div class="result ranking"><img src="/static/images/fragfest/photogame-numbers-[% count %].png" alt="[% count %] place"/></div>
    [%- END -%]
-          <div class="result photo"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/previews/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
+          <div class="result photo"><a href="/static/uploads/views/[% photo.file_name %]"><img src="/static/uploads/previews/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
    [%- END %]
         </div>
 [%- ELSE -%]

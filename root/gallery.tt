@@ -8,7 +8,7 @@
           [%- IF photo.avatar %]<img class="gravatar" src="/static/gravatars/[% photo.avatar %]" alt="[% photo.full_name %]" /><span>[% ELSE %]<span>Photos from<br />[% END -%]
           [% photo.full_name %]</span></div>
    [%- END %]
-          <div class="submission photo"><a href="/static/uploads/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
+          <div class="submission photo"><a href="/static/uploads/views/[% photo.file_name %]"><img src="/static/uploads/thumbs/[% photo.file_name %]" title="[% photo.orig_name %] taken by [% photo.full_name %]"/></a></div>
    [%- SET count = count + 1 %]
    [%- IF count == 3 -%]
        [% SET count = 0 -%]
