@@ -67,7 +67,7 @@ sub end : ActionClass('RenderView') {
         if $c->session->{iam};
 
     # total number of votes taken
-    $c->stash->{total_votes} = $c->model('DB')->get_total_votes();
+    $c->stash->{total_votes} = $c->model('DB')->get_total_votes() || 0;
 
 }
 
