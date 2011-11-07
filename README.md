@@ -34,7 +34,7 @@ Install your favourite webserver that supports one of the above, and refer to th
 Database
 --------
 
-The only database currently supported is MySQL (I know I know, I should have used PostgreSQL). As I've not used an ORM with model (mainly because I dont like them), using a different database will require a little work in adapting the SQL statements. Please fork and create one if you like, I will happily merge it.
+The only database currently supported is MySQL (I know I know, I should have used PostgreSQL). As I've not used an ORM with the model (mainly because I dont like them), using a different database will require a little work in adapting the SQL statements. Please fork and create one if you like, I will happily merge it.
 
 You will find the MySQL schema in `schema/photo_game.sql`. Create a new mysql database, and use the SQL to create the tables and their relationships (You will need InnoDB support as I make extensive use of foreign keys).
 
