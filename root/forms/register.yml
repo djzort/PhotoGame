@@ -49,7 +49,6 @@ elements:
       - type: Password
         name: password
         label: "Password:"
-        render_value: true
         attributes:
           id: password
           title: Password
@@ -64,7 +63,6 @@ elements:
       - type: Password
         name: repeat-password
         label: "Repeat:"
-        render_value: true
         attributes:
           id: repeat-password
           title: Repeat Password
