@@ -50,7 +50,6 @@ elements:
         name: password
         label: "Password:"
         render_value: true
-        
         attributes:
           id: password
           title: Password
@@ -69,7 +68,6 @@ elements:
         attributes:
           id: repeat-password
           title: Repeat Password
-
 
       - type: Submit
         name: submit
