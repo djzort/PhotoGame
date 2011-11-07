@@ -193,7 +193,7 @@ This is where the photographers will register to play the game!
 
 sub register : Path('register') : Args(0) : FormConfig {
 
-    # config is root/forms/register.yaml
+    # config is root/forms/register.yml
 
     my ( $self, $c ) = @_;
 
@@ -272,7 +272,7 @@ queue them up
 
 sub upload : Path('upload') : Args(0) : FormConfig {
 
-    # config is root/forms/upload.yaml
+    # config is root/forms/upload.yml
 
     my ( $self, $c ) = @_;
 
@@ -417,7 +417,7 @@ This is where people can vote on the assets
 
 sub vote : Path('vote') : Args(0) {
 
-    # config is root/forms/vote.yaml
+    # config is root/forms/vote.yml
 
     my ( $self, $c ) = @_;
 
