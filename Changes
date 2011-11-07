@@ -3,6 +3,7 @@ This file documents the revision history for Perl application PhotoGame.
         - Added favicon
         - Changed some paths around
         - queue converts all images to jpegs and dies when debugging
+        - tweaked register.yml to settle down debian
 
 0.03  2011-10-29 21:42:00
         - added 'total_votes' values
