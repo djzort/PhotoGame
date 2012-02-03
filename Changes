@@ -1,5 +1,6 @@
 This file documents the revision history for Perl application PhotoGame.
 
+        - added a script to remove old photos in scripts/photogame_clear.sh
         - Added favicon
         - Changed some paths around
         - queue converts all images to jpegs and dies when debugging
