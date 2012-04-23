@@ -22,6 +22,7 @@ requires 'Catalyst::Controller::HTML::FormFu';
 requires 'DBD::mysql';
 requires 'File::Spec';
 requires 'File::Temp';
+requires 'File::Path';
 requires 'List::Util';
 requires 'Moose';
 requires 'namespace::autoclean';

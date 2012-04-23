@@ -2,6 +2,7 @@ package PhotoGame::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use File::Spec;
+use File::Path qw(make_path);
 use File::Temp qw(tempfile);
 use List::Util qw(first);
 
@@ -12,9 +13,14 @@ BEGIN { extends 'Catalyst::Controller::HTML::FormFu' }
 # so they function identically to actions created in MyApp.pm
 #
 __PACKAGE__->config(
-                    namespace => '',
-                    default_action_use_path => 1
-                    );
+    namespace               => '',
+    default_action_use_path => 1
+);
+
+my $path = PhotoGame->config()->{queuepath}
+  or die q|Couldn't find queuepath config option|;
+
+make_path($path) unless -d $path;
 
 =head1 NAME
 
@@ -46,9 +52,9 @@ Standard 404 error page
 
 =cut
 
-sub default :Path {
+sub default : Path {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
+    $c->response->body('Page not found');
     $c->response->status(404);
 }
 
@@ -64,7 +70,7 @@ sub end : ActionClass('RenderView') {
 
     # shove my identity in to the stash if i am logged in
     $c->stash->{me} = $c->session->{iam}
-        if $c->session->{iam};
+      if $c->session->{iam};
 
     # total number of votes taken
     $c->stash->{total_votes} = $c->model('DB')->get_total_votes() || 0;
@@ -104,9 +110,11 @@ sub login : Path('login') : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
-    if (my $me = $c->session->{iam}) {
+    if ( my $me = $c->session->{iam} ) {
 
-        $c->stash->{message} = sprintf('You\'re already logged in as %s, go play!', $me->{full_name});
+        $c->stash->{message} =
+          sprintf( 'You\'re already logged in as %s, go play!',
+            $me->{full_name} );
         $c->detach('message');
 
     }
@@ -125,20 +133,22 @@ sub login_FORM_VALID {
 
     my ( $self, $c ) = @_;
 
-    if ( my $me = $c->model('DB')->check_user(
-        $c->req->param('username'),
-        $c->req->param('password')) ) {
+    if ( my $me =
+        $c->model('DB')
+        ->check_user( $c->req->param('username'), $c->req->param('password') ) )
+    {
 
         $c->session->{iam} = $me;
-        $c->stash->{message} = sprintf('Welcome %s, lets play!', $me->{full_name});
+        $c->stash->{message} =
+          sprintf( 'Welcome %s, lets play!', $me->{full_name} );
         $c->detach('message');
 
-    } else {
+    }
+    else {
 
         $c->stash->{error} = 'Failed to log in';
 
     }
-
 
 }
 
@@ -159,9 +169,9 @@ sub logout : Path('logout') : Args(0) {
 
     my ( $self, $c ) = @_;
 
-    if (my $me = $c->session->{iam}) {
+    if ( my $me = $c->session->{iam} ) {
 
-        $c->session->{iam} = undef;
+        $c->session->{iam}   = undef;
         $c->stash->{message} = 'Logged out!';
         $c->detach('message');
 
@@ -276,10 +286,10 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
-    my $form  = $c->stash->{form};
-    my $me = $c->session->{iam};
+    my $form = $c->stash->{form};
+    my $me   = $c->session->{iam};
 
-    unless ( $me ) {
+    unless ($me) {
 
         $c->stash->{message} = 'You must be logged in to play the game!';
         $c->detach('message');
@@ -293,11 +303,18 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     }
 
+    ## Load the queue
+
+    my @queue =
+      $c->model('DB')->get_my_queue( $c->session->{iam}->{photographer_id} );
+    $c->stash->{queue} = \@queue;
+
     ## Load specimens
 
-    $c->stash->{maxsubmissions} = $c->model('DB')->get_setting('max_submissions');
-    my @specimens = $c->model('DB')->get_my_specimen(
-                                $c->session->{iam}->{photographer_id});
+    $c->stash->{maxsubmissions} =
+      $c->model('DB')->get_setting('max_submissions');
+    my @specimens =
+      $c->model('DB')->get_my_specimen( $c->session->{iam}->{photographer_id} );
     $c->stash->{specimens} = \@specimens;
 
     ## First try to delete
@@ -310,72 +327,86 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
         if ( my $specimen_id = $c->request->param('specimen_id') ) {
 
-            if (first {$specimen_id == $_->{specimen_id}} @specimens) {
-    
+            if ( first { $specimen_id == $_->{specimen_id} } @specimens ) {
+
                 $c->model('DB')->delete_specimen(
-                        specimen_id     => $specimen_id,
-                        photographer_id => $me->{photographer_id},
-                        );
+                    specimen_id     => $specimen_id,
+                    photographer_id => $me->{photographer_id},
+                );
 
                 $c->stash->{message} = 'Specimen deleted';
 
-                @specimens = grep {$specimen_id != $_->{specimen_id}} @specimens;
-    
-            } else {
-    
+                @specimens =
+                  grep { $specimen_id != $_->{specimen_id} } @specimens;
+
+            }
+            else {
+
                 $c->stash->{message} = 'You dont own that specimen';
                 $c->detach('message');
-    
+
             }
-    
+
         }
-    
+
     }
 
     ## Second try uploads
 
     if ( $form->submitted_and_valid ) {
 
-        my $photo = $c->request->upload('photo');
-        my ( $suffix ) = $photo->filename =~ m{(\.\w+)$};
-        $suffix ||= 'jpg';
-    
-        my ( $fh, $filename );
-    
-        eval {
-            ( $fh, $filename ) = tempfile(
-               'PGXXXXXXXXXXXXXXXXXXXXXX',
-                SUFFIX => lc($suffix),
-                UNLINK => 0,
-                DIR => $c->config->{queuepath}
-                );
-        };
-    
-        if ($@) {
-    
-            $c->stash->{error} = "Error writing file: $@";
-            return 1
-    
-        }
-    
-        if ( $photo->copy_to( $fh ) ) {
-    
-            $c->model('DB')->add_queue(
-                                $photo->filename,
-                                $filename,
-                                $me->{photographer_id},
-                                $c->request->upload('specimen_id')
-                                );
-    
-            $c->stash->{message} = 'File submitted to processing queue';
-    
-        } else {
-    
-            $c->stash->{error} = 'Failed to save file';
-    
+        if ( 
+            ( scalar @specimens + scalar @queue ) >= $c->stash->{maxsubmissions} )
+        {
+            $c->stash->{message} = 'Maximum submissions reached (submitted item ignored)';
+            $c->detach('message');
         }
 
-    } elsif ( $form->submitted )  {
+        my $photo = $c->request->upload('photo');
+        my ($suffix) = $photo->filename =~ m{(\.\w+)$};
+        $suffix ||= 'jpg';
+
+        my ( $fh, $filename );
+
+        eval {
+            ( $fh, $filename ) = tempfile(
+                'PGXXXXXXXXXXXXXXXXXXXXXX',
+                SUFFIX => lc($suffix),
+                UNLINK => 0,
+                DIR    => $c->config->{queuepath}
+            );
+        };
+
+        if ($@) {
+
+            $c->stash->{error} = "Error writing file: $@";
+            return 1
+
+        }
+
+        if ( $photo->copy_to($fh) ) {
+
+            $c->model('DB')->add_queue(
+                $photo->filename, $filename,
+                $me->{photographer_id},
+                $c->request->upload('specimen_id')
+            );
+
+            $c->stash->{message} = 'File submitted to processing queue';
+
+	    # reload queue if we messed with it, note this is referenced in the stash already
+	    @queue =
+		$c->model('DB')->get_my_queue( $c->session->{iam}->{photographer_id} );
+
+        }
+        else {
+
+            $c->stash->{error} = 'Failed to save file';
+
+        }
+
+    }
+    elsif ( $form->submitted ) {
 
         $c->stash->{message} = 'Form not valid';
 
@@ -387,25 +418,26 @@ sub upload : Path('upload') : Args(0) : FormConfig {
         my $form = $self->form;
         $form->load_config_file('upload_delete.yml');
 
-        my $new = $form->element({  type  => 'Hidden',
-                                    name  => 'specimen_id',
-                                    value => $item->{specimen_id},
-                                });
+        my $new = $form->element(
+            {
+                type  => 'Hidden',
+                name  => 'specimen_id',
+                value => $item->{specimen_id},
+            }
+        );
 
-        my $position = $form->get_all_element({ type => 'Submit',
-                                                name => 'submit' });
+        my $position = $form->get_all_element(
+            {
+                type => 'Submit',
+                name => 'submit'
+            }
+        );
 
         $form->insert_before( $new, $position );
 
         $item->{form} = $form;
 
     }
-
-    ## Load the queue
-
-    my @queue = $c->model('DB')->get_my_queue(
-                                $c->session->{iam}->{photographer_id});
-    $c->stash->{queue} = \@queue;
 
 }
 
@@ -429,43 +461,46 @@ sub vote : Path('vote') : Args(0) {
     }
     else {
 
-        if ($c->req->param('winner') and $c->req->param('loser')) {
-    
-            if ($c->model('DB')->place_vote($c->req->param('winner'),$c->req->param('loser'), $c->req->address)) 
+        if ( $c->req->param('winner') and $c->req->param('loser') ) {
+
+            if (
+                $c->model('DB')->place_vote(
+                    $c->req->param('winner'), $c->req->param('loser'),
+                    $c->req->address
+                )
+              )
             {
-                $c->stash->{message} = 'Vote placed'
+                $c->stash->{message} = 'Vote placed';
             }
             else {
-                $c->stash->{message} = 'Vote failed?'
+                $c->stash->{message} = 'Vote failed?';
             }
-    
+
         }
-        elsif ($c->req->param('vote')) {
-    
+        elsif ( $c->req->param('vote') ) {
+
             $c->stash->{message} = 'Vote without winner and loser?'
-    
+
         }
 
-        if (my ($specimen1, $specimen2) =
-            $c->model('DB')->get_two_random_specimens($c->req->address))
+        if ( my ( $specimen1, $specimen2 ) =
+            $c->model('DB')->get_two_random_specimens( $c->req->address ) )
         {
-    
+
             $c->stash->{specimen1} = $specimen1;
             $c->stash->{specimen2} = $specimen2;
-    
+
         }
         else {
-    
+
             $c->stash->{message} .= ' No photos left to vote for';
             $c->detach('message');
-    
+
         }
 
     }
 
 }
-
-
 
 =head1 AUTHOR
 

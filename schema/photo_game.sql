@@ -115,7 +115,9 @@ CREATE TABLE `specimens` (
   `file_name` varchar(255) NOT NULL COMMENT 'Filename of the photo',
   `photographer_id` int(10) unsigned NOT NULL COMMENT 'Person who took the photo',
   `orig_name` varchar(255) NOT NULL COMMENT 'Original file name',
+  `orig_md5` varchar(255) NOT NULL COMMENT 'Original file MD5',
   PRIMARY KEY (`specimen_id`) USING BTREE,
+  KEY `k_orig_md5` (`orig_md5`),
   KEY `fk_photographer_id` (`photographer_id`),
   CONSTRAINT `fk_photographer_id` FOREIGN KEY (`photographer_id`) REFERENCES `photographers` (`photographer_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='photos taken';

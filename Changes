@@ -1,5 +1,10 @@
 This file documents the revision history for Perl application PhotoGame.
 
+0.04  20012-04-24 23:30:00
+        - photo_queue.pl generates md5, stashes them in the specimens table, and checks for dupe md5s
+        - the uploader function implements the maxsubmissions properly, rather than relying on hiding the uploads form
+        - photogame_queue.pl enforces max_submissions
+        - Root.pm will try to create the queuepath, im not sure if there is a better place to put initialisation tasks
         - added a script to remove old photos in scripts/photogame_clear.sh
         - Added favicon
         - Changed some paths around
