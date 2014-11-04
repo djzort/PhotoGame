@@ -1,7 +1,6 @@
 package PhotoGame::Validator::UniqueUsername;
-use strict;
-use warnings;
-use base 'HTML::FormFu::Validator';
+use strict; use warnings;
+use parent 'HTML::FormFu::Validator';
 
 sub validate_value {
     my ( $self, $value, $params ) = @_;

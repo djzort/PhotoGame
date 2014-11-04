@@ -1,9 +1,6 @@
 package PhotoGame::View::HTML;
-
-use strict;
-use warnings;
-
-use base 'Catalyst::View::TT';
+use strict; use warnings;
+use parent 'Catalyst::View::TT';
 
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
