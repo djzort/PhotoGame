@@ -355,7 +355,7 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
     if ( $form->submitted_and_valid ) {
 
-        if ( 
+        if (
             ( scalar @specimens + scalar @queue ) >= $c->stash->{maxsubmissions} )
         {
             $c->stash->{message} = 'Maximum submissions reached (submitted item ignored)';
@@ -394,9 +394,9 @@ sub upload : Path('upload') : Args(0) : FormConfig {
 
             $c->stash->{message} = 'File submitted to processing queue';
 
-	    # reload queue if we messed with it, note this is referenced in the stash already
-	    @queue =
-		$c->model('DB')->get_my_queue( $c->session->{iam}->{photographer_id} );
+            # reload queue if we messed with it, note this is referenced in the stash already
+            @queue =
+                $c->model('DB')->get_my_queue( $c->session->{iam}->{photographer_id} );
 
         }
         else {
