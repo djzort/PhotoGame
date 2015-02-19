@@ -22,6 +22,8 @@ my $path = PhotoGame->config()->{queuepath}
 
 make_path($path) unless -d $path;
 
+=encoding utf-8
+
 =head1 NAME
 
 PhotoGame::Controller::Root - Root Controller for PhotoGame
@@ -85,7 +87,7 @@ Views all the images as a gallery type of thing
 
 =cut
 
-sub gallery : Path('gallery') : Args(0) {
+sub gallery : Local() : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -106,7 +108,7 @@ Allows people to log in and then be able to submit photos to the game
 
 =cut
 
-sub login : Path('login') : Args(0) : FormConfig {
+sub login : Local() : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
@@ -165,7 +167,7 @@ Logs you out if logged in
 
 =cut
 
-sub logout : Path('logout') : Args(0) {
+sub logout : Local() : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -188,7 +190,7 @@ Just shows a generic message
 
 =cut
 
-sub message : Local {
+sub message : Private {
 
     my ( $self, $c ) = @_;
     $c->stash->{template} = 'message.tt';
@@ -201,7 +203,7 @@ This is where the photographers will register to play the game!
 
 =cut
 
-sub register : Path('register') : Args(0) : FormConfig {
+sub register : Local() : Args(0) : FormConfig {
 
     # config is root/forms/register.yml
 
@@ -256,7 +258,7 @@ Views all the images as a resilts page type of thing
 
 =cut
 
-sub results : Path('results') : Args(0) {
+sub results : Local() : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -280,7 +282,7 @@ queue them up
 
 =cut
 
-sub upload : Path('upload') : Args(0) : FormConfig {
+sub upload : Local() : Args(0) : FormConfig {
 
     # config is root/forms/upload.yml
 
@@ -447,7 +449,7 @@ This is where people can vote on the assets
 
 =cut
 
-sub vote : Path('vote') : Args(0) {
+sub vote : Local() : Args(0) {
 
     # config is root/forms/vote.yml
 
@@ -504,7 +506,7 @@ sub vote : Path('vote') : Args(0) {
 
 =head1 AUTHOR
 
-Dean Hamstead,,,
+Dean Hamstead C<< <dean@fragfest.com.au> >>
 
 =head1 LICENSE
 
