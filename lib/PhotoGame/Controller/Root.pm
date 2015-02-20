@@ -87,7 +87,7 @@ Views all the images as a gallery type of thing
 
 =cut
 
-sub gallery : Local() : Args(0) {
+sub gallery : Local : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -108,7 +108,7 @@ Allows people to log in and then be able to submit photos to the game
 
 =cut
 
-sub login : Local() : Args(0) : FormConfig {
+sub login : Local : Args(0) : FormConfig {
 
     my ( $self, $c ) = @_;
 
@@ -167,7 +167,7 @@ Logs you out if logged in
 
 =cut
 
-sub logout : Local() : Args(0) {
+sub logout : Local : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -203,7 +203,7 @@ This is where the photographers will register to play the game!
 
 =cut
 
-sub register : Local() : Args(0) : FormConfig {
+sub register : Local : Args(0) : FormConfig {
 
     # config is root/forms/register.yml
 
@@ -258,7 +258,7 @@ Views all the images as a resilts page type of thing
 
 =cut
 
-sub results : Local() : Args(0) {
+sub results : Local : Args(0) {
 
     my ( $self, $c ) = @_;
 
@@ -282,7 +282,7 @@ queue them up
 
 =cut
 
-sub upload : Local() : Args(0) : FormConfig {
+sub upload : Local : Args(0) : FormConfig {
 
     # config is root/forms/upload.yml
 
@@ -449,7 +449,7 @@ This is where people can vote on the assets
 
 =cut
 
-sub vote : Local() : Args(0) {
+sub vote : Local : Args(0) {
 
     # config is root/forms/vote.yml
 
